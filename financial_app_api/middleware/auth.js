@@ -1,7 +1,7 @@
-// middleware/auth.js
-
 const jwt = require('jsonwebtoken');
 
+// Middleware untuk melindungi rute yang memerlukan otorisasi
+// Middleware ini akan memeriksa apakah ada token di header permintaan
 const protect = (req, res, next) => {
     let token;
 
@@ -23,6 +23,7 @@ const protect = (req, res, next) => {
         }
     }
 
+    // Jika tidak ada token, kembalikan status 401 Unauthorized
     if (!token) {
         return res.status(401).json({ message: 'Tidak ada token, otorisasi ditolak.' });
     }

@@ -1,7 +1,8 @@
-// db.js
 const mysql = require('mysql2/promise');
 require('dotenv').config();
 
+// Membuat koneksi ke database MySQL menggunakan pool
+// Pool memungkinkan kita untuk mengelola beberapa koneksi secara efisien
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -12,6 +13,8 @@ const pool = mysql.createPool({
   queueLimit: 0
 });
 
+// Menguji koneksi ke database
+// Ini akan mencoba mendapatkan koneksi dari pool dan mencetak pesan sukses atau kesalahan
 pool.getConnection()
     .then(connection => {
         console.log('Successfully connected to the database!');

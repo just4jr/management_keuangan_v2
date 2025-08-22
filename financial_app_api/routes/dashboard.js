@@ -1,10 +1,10 @@
-// routes/dashboard.js
-
 const express = require('express');
 const router = express.Router();
 const pool = require('../db');
 const { protect } = require('../middleware/auth');
 
+// Middleware untuk melindungi rute
+// Semua rute di bawah ini akan memerlukan otentikasi pengguna
 router.use(protect);
 
 // Rute GET untuk data ringkasan dashboard

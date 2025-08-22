@@ -1,9 +1,8 @@
-// routes/transactions.js
-
 const express = require('express');
 const router = express.Router();
 const pool = require('../db');
 
+// Route POST untuk mendapatkan semua transaksi
 router.get('/', async (req, res) => {
     const { month, year, sort } = req.query; // Ambil parameter sort
     let query = 'SELECT * FROM transactions WHERE user_id = ?';
@@ -18,7 +17,6 @@ router.get('/', async (req, res) => {
         params.push(month);
     }
 
-    // Tambahkan logika pengurutan
     switch (sort) {
         case 'createdAt_asc':
             query += ' ORDER BY createdAt ASC';

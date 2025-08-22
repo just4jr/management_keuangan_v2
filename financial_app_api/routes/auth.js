@@ -5,7 +5,7 @@ const router = express.Router();
 const pool = require('../db');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { protect } = require('../middleware/auth'); // Pastikan baris ini ada di bagian atas file
+const { protect } = require('../middleware/auth');
 
 // Rute POST untuk registrasi pengguna baru
 router.post('/register', async (req, res) => {
@@ -51,7 +51,6 @@ router.post('/login', async (req, res) => {
 
 router.get('/profile', protect, async (req, res) => {
     try {
-        // Query ini akan mengambil foto_profil jika ada
         const [users] = await pool.query('SELECT id, first_name, last_name, email, phone_number, birth_date, created_at, foto_profil FROM users WHERE id = ?', [req.user.id]);
         if (!users[0]) {
             return res.status(404).json({ message: 'Pengguna tidak ditemukan.' });
@@ -62,6 +61,7 @@ router.get('/profile', protect, async (req, res) => {
     }
 });
 
+// Rute PUT untuk memperbarui profil pengguna
 router.put('/profile', protect, async (req, res) => {
     const { first_name, last_name, email, phone_number, birth_date } = req.body;
     try {
@@ -70,7 +70,6 @@ router.put('/profile', protect, async (req, res) => {
             [first_name, last_name, email, phone_number, birth_date, req.user.id]
         );
         
-        // Ambil data pengguna yang sudah diperbarui dengan kolom yang dijamin ada
         const [updatedUser] = await pool.query('SELECT id, first_name, last_name, email, phone_number, birth_date, created_at FROM users WHERE id = ?', [req.user.id]);
 
         if (updatedUser.length === 0) {

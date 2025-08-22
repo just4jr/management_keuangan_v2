@@ -1,7 +1,7 @@
-// src/components/EditTransactionForm.jsx
-
 import React, { useState, useEffect } from 'react';
 
+// Komponen EditTransactionForm untuk mengedit transaksi
+// Komponen ini menerima props transaction, onSave, onClose, dan categories
 function EditTransactionForm({ transaction, onSave, onClose, categories }) {
   const [formData, setFormData] = useState({
     id: '',
@@ -12,6 +12,8 @@ function EditTransactionForm({ transaction, onSave, onClose, categories }) {
     description: '',
   });
 
+  // Memuat data transaksi ke dalam state saat komponen pertama kali dimuat
+  // atau saat prop 'transaction' berubah
   useEffect(() => {
     if (transaction) {
       setFormData({
@@ -25,6 +27,8 @@ function EditTransactionForm({ transaction, onSave, onClose, categories }) {
     }
   }, [transaction]);
 
+  // Fungsi untuk menangani perubahan input
+  // Fungsi ini akan memperbarui state formData ketika input berubah
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -33,6 +37,8 @@ function EditTransactionForm({ transaction, onSave, onClose, categories }) {
     }));
   };
 
+  // Fungsi untuk menangani pengiriman form
+  // Fungsi ini akan mencegah perilaku default form dan memanggil onSave
   const handleSubmit = (e) => {
     e.preventDefault();
     onSave(formData);
@@ -46,6 +52,8 @@ function EditTransactionForm({ transaction, onSave, onClose, categories }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {/* Input untuk tanggal transaksi */}
+        {/* Ini memungkinkan pengguna untuk menentukan tanggal transaksi mereka */}
         <div>
           <label htmlFor="transactionDate" className="block text-sm font-medium mb-1">Tanggal</label>
           <input
@@ -58,6 +66,8 @@ function EditTransactionForm({ transaction, onSave, onClose, categories }) {
             required
           />
         </div>
+        {/* Dropdown untuk memilih tipe transaksi (Pemasukan/Pengeluaran) */}
+        {/* Ini memungkinkan pengguna memilih apakah transaksi ini adalah pemasukan atau pengeluaran */}
         <div>
           <label htmlFor="transactionType" className="block text-sm font-medium mb-1">Tipe Transaksi</label>
           <select
@@ -73,6 +83,8 @@ function EditTransactionForm({ transaction, onSave, onClose, categories }) {
             <option value="expense">Pengeluaran</option>
           </select>
         </div>
+        {/* Dropdown untuk memilih kategori transaksi */}
+        {/* Ini memungkinkan pengguna memilih kategori yang sesuai dengan transaksi mereka */}
         <div>
           <label htmlFor="category" className="block text-sm font-medium mb-1">Nama atau Jenis Anggaran</label>
           <select
@@ -90,6 +102,8 @@ function EditTransactionForm({ transaction, onSave, onClose, categories }) {
           </select>
         </div>
       </div>
+      {/* Input untuk jumlah transaksi */}
+      {/* Ini memungkinkan pengguna untuk menentukan jumlah transaksi mereka */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label htmlFor="amount" className="block text-sm font-medium mb-1">Jumlah</label>
@@ -103,6 +117,8 @@ function EditTransactionForm({ transaction, onSave, onClose, categories }) {
             required
           />
         </div>
+        {/* Input untuk deskripsi transaksi */}
+        {/* Ini memungkinkan pengguna untuk memberikan keterangan tambahan tentang transaksi */}
         <div>
           <label htmlFor="description" className="block text-sm font-medium mb-1">Keterangan</label>
           <input
@@ -116,6 +132,9 @@ function EditTransactionForm({ transaction, onSave, onClose, categories }) {
           />
         </div>
       </div>
+      {/* Tombol untuk mengirim form atau membatalkan */}
+      {/* Tombol ini akan memanggil onClose ketika pengguna ingin membatalkan pengeditan transaksi */}
+      {/* Tombol ini akan memanggil onSave ketika pengguna ingin menyimpan perubahan */}
       <div className="flex justify-end space-x-3">
         <button
           type="button"

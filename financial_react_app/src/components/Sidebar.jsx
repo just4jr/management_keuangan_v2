@@ -1,14 +1,18 @@
-// src/components/Sidebar.jsx
-
 import React, { useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import AuthContext from '../context/AuthContext';
 
+// Komponen Sidebar untuk navigasi aplikasi
+// Komponen ini menerima props isOpen dan toggleSidebar untuk mengontrol visibilitas sidebar
 function Sidebar({ isOpen, toggleSidebar }) {
+  // Menggunakan useNavigate untuk navigasi programatikally
+  // Menggunakan useContext untuk mendapatkan fungsi logout dari AuthContext
   const navigate = useNavigate();
   const { logout } = useContext(AuthContext);
 
+  // Fungsi untuk menangani logout
+  // Fungsi ini akan menampilkan konfirmasi sebelum melakukan logout
   const handleLogout = () => {
     Swal.fire({
       title: 'Apakah Anda yakin?',
@@ -32,6 +36,8 @@ function Sidebar({ isOpen, toggleSidebar }) {
     });
   };
 
+  // Daftar item navigasi untuk sidebar
+  // Setiap item memiliki nama, ikon, dan path untuk navigasi
   const navItems = [
     { name: 'Dashboard', icon: 'bi-house-door', path: '/' },
     { name: 'Transaksi', icon: 'bi-cash-stack', path: '/transaksi' },
@@ -72,7 +78,8 @@ function Sidebar({ isOpen, toggleSidebar }) {
           </button>
         )}
       </div>
-      
+      {/* Navigasi sidebar */}
+      {/* Menggunakan NavLink untuk navigasi yang aktif */}
       <nav className="flex-1 px-4 mt-6">
         {navItems.map((item) => (
           <NavLink
@@ -91,7 +98,8 @@ function Sidebar({ isOpen, toggleSidebar }) {
           </NavLink>
         ))}
       </nav>
-
+      {/* Tombol untuk logout */}
+      {/* Tombol ini akan memanggil handleLogout ketika pengguna ingin keluar dari akun */}
       <div className="p-4 border-t border-gray-200">
         <button
           onClick={handleLogout}

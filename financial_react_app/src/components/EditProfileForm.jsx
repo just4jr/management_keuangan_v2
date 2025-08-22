@@ -1,7 +1,7 @@
-// src/components/EditProfileForm.jsx
-
 import React, { useState, useEffect } from 'react';
 
+// Komponen EditBudgetForm untuk mengedit anggaran
+// Komponen ini menerima props budget, onSave, dan onClose
 function EditProfileForm({ user, onSave, onCancel }) {
   const [formData, setFormData] = useState({
     first_name: '',
@@ -24,11 +24,15 @@ function EditProfileForm({ user, onSave, onCancel }) {
     }
   }, [user]);
 
+  // Fungsi untuk menangani perubahan input
+  // Fungsi ini akan memperbarui state formData ketika input berubah
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevData => ({ ...prevData, [name]: value }));
   };
 
+  // Fungsi untuk menangani pengiriman form
+  // Fungsi ini akan mencegah perilaku default form dan memanggil onSave
   const handleSubmit = (e) => {
     e.preventDefault();
     onSave(formData);
@@ -37,6 +41,7 @@ function EditProfileForm({ user, onSave, onCancel }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Input untuk nama depan */}
         <div>
           <label htmlFor="first_name" className="block text-sm font-medium mb-1 text-gray-700">Nama Depan</label>
           <input
@@ -49,6 +54,7 @@ function EditProfileForm({ user, onSave, onCancel }) {
             required
           />
         </div>
+        {/* Input untuk nama belakang */}
         <div>
           <label htmlFor="last_name" className="block text-sm font-medium mb-1 text-gray-700">Nama Belakang</label>
           <input
@@ -62,6 +68,7 @@ function EditProfileForm({ user, onSave, onCancel }) {
           />
         </div>
       </div>
+      {/* Input untuk email */}
       <div>
         <label htmlFor="email" className="block text-sm font-medium mb-1 text-gray-700">Email</label>
         <input
@@ -74,6 +81,8 @@ function EditProfileForm({ user, onSave, onCancel }) {
           required
         />
       </div>
+      {/* Input untuk nomor telepon dan tanggal lahir */}
+      {/* Ini memungkinkan pengguna untuk memperbarui informasi kontak mereka */} 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label htmlFor="phone_number" className="block text-sm font-medium mb-1 text-gray-700">Nomor Telepon</label>
@@ -86,6 +95,8 @@ function EditProfileForm({ user, onSave, onCancel }) {
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
+        {/* Input untuk tanggal lahir */}
+        {/* Ini memungkinkan pengguna untuk menentukan tanggal lahir mereka */}
         <div>
           <label htmlFor="birth_date" className="block text-sm font-medium mb-1 text-gray-700">Tanggal Lahir</label>
           <input
@@ -98,6 +109,9 @@ function EditProfileForm({ user, onSave, onCancel }) {
           />
         </div>
       </div>
+      {/* Tombol untuk mengirim form atau membatalkan */}
+      {/* Tombol ini akan memanggil onCancel ketika pengguna ingin membatalkan pengeditan profil */}
+      {/* Tombol ini akan memanggil onSave ketika pengguna ingin menyimpan perubahan */}
       <div className="flex justify-end gap-3 mt-6">
         <button
           type="button"

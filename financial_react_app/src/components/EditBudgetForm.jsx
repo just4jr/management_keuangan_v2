@@ -1,7 +1,7 @@
-// src/components/EditBudgetForm.jsx
-
 import React, { useState, useEffect } from 'react';
 
+// Komponen EditBudgetForm untuk mengedit anggaran
+// Komponen ini menerima props budget, onSave, dan onClose
 function EditBudgetForm({ budget, onSave, onClose }) {
   const [formData, setFormData] = useState({
     id: '',
@@ -23,6 +23,8 @@ function EditBudgetForm({ budget, onSave, onClose }) {
     }
   }, [budget]);
 
+  // Fungsi untuk menangani perubahan input
+  // Fungsi ini akan memperbarui state formData ketika input berubah
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -31,13 +33,18 @@ function EditBudgetForm({ budget, onSave, onClose }) {
     }));
   };
 
+  // Fungsi untuk menangani pengiriman form
+  // Fungsi ini akan mencegah perilaku default form dan memanggil onSave
   const handleSubmit = (e) => {
     e.preventDefault();
     onSave(formData);
   };
 
+  // Render form untuk mengedit anggaran
+  // Form ini terdiri dari input untuk kategori, jumlah, dan tipe anggaran
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {/* Input untuk kategori anggaran */}
       <div>
         <label htmlFor="category" className="block text-sm font-medium mb-1">Nama Kategori</label>
         <input
@@ -50,6 +57,7 @@ function EditBudgetForm({ budget, onSave, onClose }) {
           required
         />
       </div>
+      {/* Input untuk jumlah anggaran */}
       <div>
         <label htmlFor="amount" className="block text-sm font-medium mb-1">Jumlah Anggaran</label>
         <input
@@ -62,6 +70,8 @@ function EditBudgetForm({ budget, onSave, onClose }) {
           required
         />
       </div>
+      {/* Dropdown untuk memilih tipe anggaran (Pengeluaran/Pemasukan) */}
+      {/* Ini memungkinkan pengguna memilih apakah anggaran ini untuk pengeluaran atau pemasukan */}
       <div>
         <label htmlFor="type" className="block text-sm font-medium mb-1">Jenis Kategori</label>
         <select
@@ -76,6 +86,8 @@ function EditBudgetForm({ budget, onSave, onClose }) {
           <option value="income">Pemasukan</option>
         </select>
       </div>
+      {/* Tombol untuk mengirim form atau membatalkan */}
+      {/* Tombol ini akan memanggil onClose ketika pengguna ingin membatalkan pengeditan anggaran */}
       <div className="flex justify-end space-x-3">
         <button
           type="button"

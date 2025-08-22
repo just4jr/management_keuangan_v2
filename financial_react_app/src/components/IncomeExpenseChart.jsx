@@ -1,5 +1,3 @@
-// src/components/IncomeExpenseChart.jsx
-
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import {
@@ -22,6 +20,8 @@ ChartJS.register(
   Legend
 );
 
+// Komponen IncomeExpenseChart untuk menampilkan grafik pemasukan dan pengeluaran
+// Komponen ini menerima props data yang berisi informasi pemasukan dan pengeluaran
 function IncomeExpenseChart({ data }) {
   // Labels untuk sumbu X (bulan)
   const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
@@ -71,6 +71,8 @@ function IncomeExpenseChart({ data }) {
     },
   };
 
+  // Render komponen Bar dari react-chartjs-2 dengan data dan opsi yang telah ditentukan
+  // Komponen ini akan menampilkan grafik batang untuk pemasukan dan pengeluaran
   return (
     <Bar options={options} data={chartData} />
   );

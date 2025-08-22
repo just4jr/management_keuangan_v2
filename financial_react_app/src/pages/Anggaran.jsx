@@ -1,5 +1,3 @@
-// src/pages/Anggaran.jsx
-
 import React, { useState, useEffect, useContext } from 'react';
 import Swal from 'sweetalert2';
 import SummaryCards from '../components/SummaryCards';
@@ -8,6 +6,8 @@ import BudgetForm from '../components/BudgetForm';
 import EditBudgetForm from '../components/EditBudgetForm';
 import AuthContext from '../context/AuthContext';
 
+// Komponen Anggaran untuk mengelola anggaran pengguna
+// Komponen ini akan menampilkan ringkasan anggaran, daftar anggaran, dan form
 function Anggaran() {
   const { token } = useContext(AuthContext);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -16,6 +16,9 @@ function Anggaran() {
   const [budgetToEdit, setBudgetToEdit] = useState(null);
   const [summary, setSummary] = useState({ totalPemasukan: 0, totalPengeluaran: 0, sisaAnggaran: 0 });
 
+  // Fungsi untuk memformat angka menjadi format Rupiah
+  // Fungsi ini akan digunakan untuk menampilkan total pemasukan, pengeluaran, dan sisa uang
+  // Format ini akan menambahkan simbol IDR dan memisahkan ribuan dengan titik
   const formatRupiah = (angka) => {
     return new Intl.NumberFormat('id-ID', {
       style: 'currency',
@@ -24,6 +27,8 @@ function Anggaran() {
     }).format(angka);
   };
 
+  // Fungsi untuk mengambil data anggaran dari server
+  // Fungsi ini akan digunakan untuk mengambil data anggaran dari server
   const fetchBudgets = async () => {
     if (!token) return;
     try {
@@ -43,6 +48,8 @@ function Anggaran() {
     }
   };
 
+  // Fungsi untuk mengambil data ringkasan anggaran dari server
+  // Fungsi ini akan digunakan untuk mengambil total pemasukan, pengeluaran, dan sisa
   const fetchSummaryData = async () => {
     if (!token) return;
     try {
@@ -62,6 +69,8 @@ function Anggaran() {
     }
   };
 
+  // Efek untuk mengambil data anggaran dan ringkasan saat komponen dimuat
+  // Ini akan memastikan data selalu diperbarui ketika komponen ini digunakan
   useEffect(() => {
     if (token) {
       fetchBudgets();
@@ -69,18 +78,26 @@ function Anggaran() {
     }
   }, [token]);
 
+  // Fungsi untuk membuka modal tambah anggaran
+  // Fungsi ini akan mengubah state isAddModalOpen menjadi true
   const openAddModal = () => setIsAddModalOpen(true);
   const closeAddModal = () => setIsAddModalOpen(false);
 
+  // Fungsi untuk membuka modal edit anggaran
+  // Fungsi ini akan mengubah state isEditModalOpen menjadi true
   const openEditModal = (budget) => {
     setBudgetToEdit(budget);
     setIsEditModalOpen(true);
   };
+  // Fungsi untuk menutup modal edit anggaran
+  // Fungsi ini akan mengubah state isEditModalOpen menjadi false dan mengosong
   const closeEditModal = () => {
     setBudgetToEdit(null);
     setIsEditModalOpen(false);
   };
 
+  // Fungsi untuk menambahkan anggaran baru
+  // Fungsi ini akan meminta konfirmasi
   const handleAddBudget = async (newBudget) => {
     Swal.fire({
       title: 'Tambahkan Anggaran?',
@@ -119,6 +136,8 @@ function Anggaran() {
     });
   };
 
+  // Fungsi untuk memperbarui anggaran yang sudah ada
+  // Fungsi ini akan meminta konfirmasi sebelum memperbarui anggaran
   const handleUpdateBudget = async (updatedBudget) => {
     Swal.fire({
       title: 'Simpan Perubahan?',
@@ -157,6 +176,8 @@ function Anggaran() {
     });
   };
 
+  // Fungsi untuk menghapus anggaran
+  // Fungsi ini akan meminta konfirmasi sebelum menghapus anggaran
   const handleDeleteBudget = async (id) => {
     Swal.fire({
       title: 'Hapus Anggaran?',
@@ -191,6 +212,8 @@ function Anggaran() {
     });
   };
 
+  // Menghitung total pemasukan, pengeluaran, dan sisa anggaran
+  // Fungsi ini akan digunakan untuk menghitung total pemasukan, pengeluaran, dan sisa anggaran
   const expenses = budgets.filter(b => b.type === 'expense');
   const incomes = budgets.filter(b => b.type === 'income');
 

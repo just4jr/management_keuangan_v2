@@ -1,10 +1,12 @@
-// src/components/SpendingPieChart.jsx
-
 import React from 'react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 
+// Warna untuk setiap kategori pengeluaran
+// Warna ini akan digunakan untuk membedakan setiap kategori dalam pie chart
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AF19FF', '#FF19A6', '#19FF5C', '#19B7FF'];
 
+// Komponen SpendingPieChart untuk menampilkan grafik pie pengeluaran
+// Komponen ini menerima props data yang berisi informasi pengeluaran per kategori
 function SpendingPieChart({ data }) {
   // Fungsi untuk memformat nilai rupiah pada tooltip
   const formatRupiah = (angka) => {
@@ -15,6 +17,8 @@ function SpendingPieChart({ data }) {
     }).format(angka);
   };
 
+  // Komponen untuk menampilkan tooltip khusus
+  // Komponen ini akan menampilkan nama kategori dan total pengeluaran
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       const { name, value } = payload[0];
